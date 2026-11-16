@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>英文法帳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:#F6F7F9;
+  --card:#FFFFFF;
+  --border:#E3E6EA;
+  --ink:#1A1D23;
+  --ink-soft:#6B7280;
+  --accent:#3D6BFF;
+  --accent-soft:#EAEFFF;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:'Noto Sans JP','Inter',sans-serif;
+  color:var(--ink);
+  padding:0 0 64px 0;
+  min-height:100vh;
+}
+
+.wrap{
+  max-width:640px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+header{
+  padding:40px 0 24px 0;
+}
+
+h1{
+  font-size:26px;
+  font-weight:700;
+  margin:0 0 6px 0;
+  letter-spacing:0.01em;
+}
+
+.sub{
+  font-size:14px;
+  color:var(--ink-soft);
+  margin:0;
+}
+
+nav{
+  display:flex;
+  gap:8px;
+  margin:0 0 28px 0;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:4px;
+}
+
+.tab{
+  flex:1;
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:14px;
+  font-weight:500;
+  background:none;
+  border:none;
+  padding:10px 16px;
+  color:var(--ink-soft);
+  cursor:pointer;
+  border-radius:7px;
+  transition:background 0.15s, color 0.15s;
+}
+
+.tab.active{
+  color:var(--ink);
+  background:var(--accent-soft);
+}
+
+.view{display:none;}
+.view.active{display:block;}
+
+label{
+  display:block;
+  font-size:12px;
+  color:var(--ink-soft);
+  letter-spacing:0.08em;
+  margin:0 0 6px 0;
+}
+
+.field{margin-bottom:20px;}
+
+textarea, input[type=text]{
+  width:100%;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:2px;
+  padding:12px 14px;
+  font-size:15px;
+  color:var(--ink);
+  resize:vertical;
+  font-family:'Inter','Noto Sans JP',sans-serif;
+}
+
+textarea.jp, input.jp{
+  font-family:'Noto Sans JP',sans-serif;
+}
+
+textarea:focus, input:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-soft);
+}
+
+textarea{min-height:64px;}
+
+.hint{font-size:12px;color:var(--ink-soft);margin-top:6px;}
+
+button.save{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:500;
+  font-size:14px;
+  background:var(--accent);
+  color:#FFFFFF;
+  border:none;
+  padding:11px 26px;
+  border-radius:8px;
+  cursor:pointer;
+}
+button.save:hover{background:#2E58E0;}
+button.save:active{transform:translateY(1px);}
+
+.searchbox{position:relative;margin-bottom:24px;}
+.searchbox input{padding-left:40px;font-size:16px;}
+.searchbox::before{
+  content:'';
+  position:absolute;
+  left:13px;
+  top:50%;
+  transform:translateY(-50%);
+  width:16px;
+  height:16px;
+  border:2px solid var(--ink-soft);
+  border-radius:50%;
+  box-sizing:border-box;
+}
+.searchbox::after{
+  content:'';
+  position:absolute;
+  left:25px;
+  top:calc(50% + 7px);
+  width:2px;
+  height:8px;
+  background:var(--ink-soft);
+  transform:rotate(45deg);
+  border-radius:1px;
+}
+
+.count{font-size:13px;color:var(--ink-soft);margin:0 0 16px 0;}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:18px 20px;
+  margin-bottom:12px;
+  position:relative;
+}
+
+.card .eng{
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  font-weight:500;
+  line-height:1.5;
+  margin:0 0 10px 0;
+}
+
+.card .jp{
+  font-size:14px;
+  color:var(--ink-soft);
+  line-height:1.7;
+  margin:0;
+}
+
+.card .jp mark{
+  background:var(--accent-soft);
+  color:var(--accent);
+  padding:0 2px;
+  border-radius:3px;
+  font-weight:500;
+}
+
+.card .del{
+  position:absolute;
+  top:14px;
+  right:14px;
+  background:none;
+  border:none;
+  color:var(--ink-soft);
+  font-size:12px;
+  cursor:pointer;
+  opacity:0;
+  transition:opacity 0.15s;
+}
+.card:hover .del{opacity:1;}
+.card .del:hover{color:var(--accent);}
+
+.empty{
+  text-align:center;
+  padding:48px 0;
+  color:var(--ink-soft);
+  font-size:14px;
+}
+
+.recent-title{
+  font-size:13px;
+  font-weight:500;
+  color:var(--ink-soft);
+  margin:36px 0 14px 0;
+  padding-top:24px;
+  border-top:1px solid var(--border);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>英文法帳</h1>
+    <p class="sub">英文法と例文を記録して、日本語で検索できるノート</p>
+  </header>
+
+  <div class="view active" id="view-search">
+    <div class="searchbox">
+      <input type="text" class="jp" id="in-search" placeholder="日本語で検索（例：完了形、〜したことがある）">
+    </div>
+    <p class="count" id="search-count"></p>
+    <div id="search-list"></div>
+  </div>
+
+</div>
+
+<script id="seed-data" type="application/json">[
+ {
+  "eng": "If you learn to live with changes, you will no longer be afraid of them.",
+  "jp": "もしあなたが変化を受け入れて生きるようになれば，もう変化を恐れることはなくなるだろう。",
+  "created": 1786763861871
+ },
+ {
+  "eng": "Not all politicians are greedy and sneaky . Some are honest and trustworthy .",
+  "jp": "すべての政治家が欲張りでずるいわけではない。中には正直で信頼に値する政治家もいる。",
+  "created": 1786763856217
+ },
+ {
+  "eng": "As Andrew is a very responsible and good person, I don't doubt his innocence at all.",
+  "jp": "アンドルーはとても信頼できる善良な人なので，私は彼の無実を全く疑わない。",
+  "created": 1786763848318
+ },
+ {
+  "eng": "Old and tired as the detective was, he was determined to find the solution to the mystery.",
+  "jp": "その探偵は年寄りでくたびれていたが，その謎の答えを見つけようと決心した。",
+  "created": 1786763842008
+ },
+ {
+  "eng": "It was just before Christmas that my long-lost brother suddenly showed up.",
+  "jp": "長い間行方不明だった兄が突然現れたのは，クリスマスの直前だった。",
+  "created": 1786763836458
+ },
+ {
+  "eng": "It was this watch that my father gave to me as a present just before going to war.",
+  "jp": "父が戦争に行く直前に私に贈り物としてくれたのは，この時計だ。",
+  "created": 1786763830577
+ },
+ {
+  "eng": "Never in my life have I met such a funny and energetic person .",
+  "jp": "私の人生で，あれほど愉快で精力的な人には会ったことがない。",
+  "created": 1786763824815
+ },
+ {
+  "eng": "No sooner had I arrived at Allen’s house than his birthday party started.",
+  "jp": "私がアレンの家に着くとすぐに，彼の誕生パーティーが始まった。",
+  "created": 1786763817982
+ },
+ {
+  "eng": "I'm excited because this is the first time I have ever visited the city of Seattle.",
+  "jp": "シアトル市を訪れるのはこれが初めてなので，私はわくわくしている。",
+  "created": 1786763811358
+ },
+ {
+  "eng": "Hope is the proof that you are alive.",
+  "jp": "希望は，あなたが生きているという証拠だ。",
+  "created": 1786763805727
+ },
+ {
+  "eng": "What is the new teacher like? Is she as kind as Ms. Brown ?",
+  "jp": "新しい先生はどんな人？　ブラウン先生と同じくらい優しいの？",
+  "created": 1786763798814
+ },
+ {
+  "eng": "Who can master a foreign language in a month while we spend years mastering our own native tongue?",
+  "jp": "私たちは母語を習得するのに何年も費やすのに，誰が１か月で外国語を習得できようか。",
+  "created": 1786763792782
+ },
+ {
+  "eng": "The party was a great success ,wasn't it? --- Yes, I think it was . Everybody was enjoying it very much.",
+  "jp": "「パーティーは大成功だったね。」―「うん，そう思うよ。みんなとても楽しんでいた。」",
+  "created": 1786763786970
+ },
+ {
+  "eng": "Who do you think is the writer of this novel? Can you guess ?",
+  "jp": "この小説の著者は誰だと思う？　当ててごらん？",
+  "created": 1786763780957
+ },
+ {
+  "eng": "Do you know where Jack learned to fly and got his pilot's license ?",
+  "jp": "ジャックがどこで飛行機の操縦を習ってパイロットの免許を取ったのか知っていますか？",
+  "created": 1786763774084
+ },
+ {
+  "eng": "With a little more help, I would be able to complete the new computer program .",
+  "jp": "もう少しの援助があれば，私は新しいコンピュータプログラムを完成できるのに。",
+  "created": 1786763682545
+ },
+ {
+  "eng": "Were I the prime minister, I would reduce the income tax .",
+  "jp": "もし私が総理大臣なら，所得税を減らすのに。",
+  "created": 1786763675189
+ },
+ {
+  "eng": "Should I be chosen to be chairperson, I would be glad to accept the responsibility.",
+  "jp": "もしも私が議長に選ばれたら，喜んでその責任を引き受けますよ。",
+  "created": 1786763668674
+ },
+ {
+  "eng": "Had I known your phone number, I would have called you and informed you of the result.",
+  "jp": "もし君の電話番号を知っていたら，君に電話してその結果を伝えたのに。",
+  "created": 1786763661925
+ },
+ {
+  "eng": "The team leader suggested that we come to school and practice early every morning .",
+  "jp": "チームリーダーは，私たちが毎朝早く登校して練習することを提案した。",
+  "created": 1786763642586
+ },
+ {
+  "eng": "It is essential that all the employees be taught the emergency procedures.",
+  "jp": "社員は全員，緊急時の手順を教わることが必須です。",
+  "created": 1786763635922
+ },
+ {
+  "eng": "It is high time you brushed your teeth and went to bed.",
+  "jp": "もう歯を磨いて寝る時間ですよ。",
+  "created": 1786763630324
+ },
+ {
+  "eng": "Paul spoke as if he had met the U.S. president face to face.",
+  "jp": "ポールはまるで米国の大統領と対面したことがあるかのように話した。",
+  "created": 1786763620912
+ },
+ {
+  "eng": "I often get irritated because my girlfriend treats me as if I were a little boy.",
+  "jp": "恋人がぼくをまるで小さな男の子のように扱うので，ぼくはよくいらいらする。",
+  "created": 1786763614279
+ },
+ {
+  "eng": "Now I strongly wish I had said, “Thank you” to my father before he passed away .",
+  "jp": "今になって私は，父が亡くなる前に『ありがとう』と父に言えばよかったと強く思っている。",
+  "created": 1786763606813
+ },
+ {
+  "eng": "I wish I had big wings on my back and could fly to you immediately .",
+  "jp": "ぼくの背中に大きな翼があって，すぐに君のところへ飛んで行ければいいのに。",
+  "created": 1786763600253
+ },
+ {
+  "eng": "I was exhausted ; otherwise I would have gone to the theme park with my daughter.",
+  "jp": "私は疲れ切っていた。そうでなければ娘とテーマパークへ行ったのに。",
+  "created": 1786763592537
+ },
+ {
+  "eng": "A true friend would never say such a cruel thing to you. Forget him .",
+  "jp": "真の友なら君にそんな残酷なことは決して言わないだろう。彼のことは忘れたまえ。",
+  "created": 1786763581688
+ },
+ {
+  "eng": "Without the sun, which is the source of all energy on earth, no life forms could live .",
+  "jp": "地上のあらゆるエネルギーの源である太陽がなければ，どんな生命体も生存できない。",
+  "created": 1786763574794
+ },
+ {
+  "eng": "If it had not been for my father's advice, I would have failed in my business.",
+  "jp": "もし父の助言がなかったら，私は事業に失敗していただろう。",
+  "created": 1786763566008
+ },
+ {
+  "eng": "If it were not for your help, I could never finish this job in time.",
+  "jp": "もし君の助けがなければ，私はこの仕事を期限内に決して終えられないだろう。",
+  "created": 1786763548455
+ },
+ {
+  "eng": "If it should rain tomorrow, the outdoor concert will be cancelled .",
+  "jp": "万一明日雨が降ったら，野外コンサートは中止されるだろう。",
+  "created": 1786763541353
+ },
+ {
+  "eng": "Even if the sun were to rise in the west, I would never change my ambition to be a doctor.",
+  "jp": "たとえ太陽が西から昇るようなことがあっても，私は医者になるという大きな志を決して変えない。",
+  "created": 1786763534863
+ },
+ {
+  "eng": "If I had been brave enough to give her the ring on that day, she would be my wife , not his.",
+  "jp": "もし私があの日彼女に指輪をあげる勇気があったら，彼女は彼ではなく私の妻になっているだろう。",
+  "created": 1786763528573
+ },
+ {
+  "eng": "If the police officer had cut the other cord, the time bomb would have exploded .",
+  "jp": "もしその警官がもう一方のコードを切っていたら，時限爆弾が爆発していただろう。",
+  "created": 1786763523075
+ },
+ {
+  "eng": "If I were a billionaire, I would buy a nice little present for all the orphans in the town on Christmas day.",
+  "jp": "もし私が億万長者なら，クリスマスに町のすべての孤児にささやかな贈り物を買ってあげるのに。",
+  "created": 1786763515953
+ },
+ {
+  "eng": "Dylan talked his mother into following the doctor's advice to have the surgery.",
+  "jp": "ディランは母親を説得して，手術を受けるようにという医者の忠告に従わせた。",
+  "created": 1786763509673
+ },
+ {
+  "eng": "The international conference is likely to be put off because of the hurricane hitting that area.",
+  "jp": "国際会議は，その地域を襲っているハリケーンのために延期されそうだ。",
+  "created": 1786763502549
+ },
+ {
+  "eng": "I can't concentrate on the video game with you watching like that all the time.",
+  "jp": "君がそんなふうにずっと見ていると，テレビゲームに集中できないよ。",
+  "created": 1786763496286
+ },
+ {
+  "eng": "It's quite rude to talk with your mouth full at the dinner table.",
+  "jp": "夕食の席で口に食べ物を入れたまま話すのは実に無作法だ。",
+  "created": 1786763490024
+ },
+ {
+  "eng": "With the bridge destroyed, we were unable to go to the other side of the river.",
+  "jp": "橋が壊れていたので，我々は川の向こう側へ行くことができなかった。",
+  "created": 1786763483843
+ },
+ {
+  "eng": "A four-year experience at university will be of great value in your future.",
+  "jp": "大学での４年間の経験は，あなたの将来に大きな価値をもつでしょう。",
+  "created": 1786763477132
+ },
+ {
+  "eng": "The invention of writing enabled human beings to pass on information from generation to generation.",
+  "jp": "文字の発明によって，人間は世代から世代へ情報を伝えることができた。",
+  "created": 1786763461692
+ },
+ {
+  "eng": "Reckless investments can cost you your entire fortune .",
+  "jp": "無謀な投資によって，あなたは全財産を失うこともありうる。",
+  "created": 1786763455147
+ },
+ {
+  "eng": "This computer system allows the students to find any book in the library with ease.",
+  "jp": "このコンピュータシステムによって，学生たちは図書館内のどんな本でも簡単に見つけることができる。",
+  "created": 1786763449077
+ },
+ {
+  "eng": "Students helped to carry many pieces of furniture into the principal’s office.",
+  "jp": "生徒たちが校長室にたくさんの家具を運ぶのを手伝った。",
+  "created": 1786763414897
+ },
+ {
+  "eng": "The picture in the drawer reminded the old man of the happy days spent with his deceased wife.",
+  "jp": "引き出しの中の写真を見て，その老人は亡くなった妻と過ごした楽しい日々を思い出した。",
+  "created": 1786763407252
+ },
+ {
+  "eng": "He said something terrible to me yesterday. What has made him change his mind ?",
+  "jp": "彼はきのう私にひどいことを言った。なぜ彼は心変わりしたのか。",
+  "created": 1786763399956
+ },
+ {
+  "eng": "A 10-minute walk will take you to the National Science Museum.",
+  "jp": "10分歩けば，あなたは国立科学博物館に着くでしょう。",
+  "created": 1786763391558
+ },
+ {
+  "eng": "This equipment can save the workers a lot of time and trouble .",
+  "jp": "この設備は，労働者たちから多くの時間と手間を省いてくれる。",
+  "created": 1786763384765
+ },
+ {
+  "eng": "Heavy snowfall prevented the train from arriving on time.",
+  "jp": "大雪が降ったので電車は時間どおりに到着できなかった。",
+  "created": 1786763374972
+ },
+ {
+  "eng": "You might as well donate the money to a volunteer organization as buy an expensive accessory.",
+  "jp": "高価なアクセサリーを買うくらいなら，君はボランティア団体にそのお金を寄付した方がよい。",
+  "created": 1786763365271
+ },
+ {
+  "eng": "I didn't have enough money to pay for the rent, much less to buy a car.",
+  "jp": "私は家賃を支払えるだけのお金を持っていなかったし，ましてや車を買えるほどのお金はなかった。",
+  "created": 1786763354649
+ },
+ {
+  "eng": "Nathan is not so much a university professor as a TV personality.",
+  "jp": "ネイサンは大学教授というよりもむしろテレビタレントだ。",
+  "created": 1786763348506
+ },
+ {
+  "eng": "I talked as loudly as possible so that the elderly lady could hear me clearly.",
+  "jp": "その年配の女性にはっきり聞こえるよう，私はできるだけ大声で話した。",
+  "created": 1786763340329
+ },
+ {
+  "eng": "Allen's classmates think that he is no less intelligent than the math teacher .",
+  "jp": "アレンのクラスメートたちは，彼が数学の先生に劣らず頭がいいと思っている。",
+  "created": 1786763334056
+ },
+ {
+  "eng": "I think Michael is no more sensible than an elementary school student .",
+  "jp": "マイケルは小学生と同じく分別がないと私は思う。",
+  "created": 1786763327957
+ },
+ {
+  "eng": "I paid no less than a hundred dollars for the jacket because I couldn't find anything cheaper in brown.",
+  "jp": "茶色でもっと安いものが見つからなかったので，私はその上着に100ドルも支払った。",
+  "created": 1786763323141
+ },
+ {
+  "eng": "Judy weighs no more than forty kilograms , but she's still trying to get thinner .",
+  "jp": "ジュディの体重は40キログラムしかないが，彼女はそれでももっとやせようとしている。",
+  "created": 1786763316268
+ },
+ {
+  "eng": "Daniel has twice as many shirts as I have.",
+  "jp": "ダニエルはぼくの２倍の数のシャツを持っている。",
+  "created": 1786763311692
+ },
+ {
+  "eng": "I want a piece of cake that is half as big as yours.",
+  "jp": "あなたのケーキの半分の大きさのケーキがほしいわ。",
+  "created": 1786763164603
+ },
+ {
+  "eng": "The population of China is about ten times as large as that of Japan.",
+  "jp": "中国の人口は日本の人口のおよそ10倍だ。",
+  "created": 1786763157199
+ },
+ {
+  "eng": "James is the last person to tell a lie. You should trust him .",
+  "jp": "ジェイムズはうそをつくような人ではない。君は彼を信頼すべきだ。",
+  "created": 1786763151732
+ },
+ {
+  "eng": "Akira Kurosawa was one of the greatest movie directors that Japan has ever produced.",
+  "jp": "黒澤明は日本が生んだ最も偉大な映画監督の１人だった。",
+  "created": 1786763145988
+ },
+ {
+  "eng": "Unfortunately I must say that Aiden is the least skillful player on the team .",
+  "jp": "残念なことに，エイデンはチームで最も技術の劣る選手だと言わねばならない。",
+  "created": 1786763140870
+ },
+ {
+  "eng": "I preferred working abroad to working at home, so I chose to study English in university.",
+  "jp": "私は自国で働くよりも外国で働きたかったので，大学で英語を学ぶことに決めた。",
+  "created": 1786763133831
+ },
+ {
+  "eng": "Nothing can give you more vitality than having a good rival.",
+  "jp": "よい競争相手を持つことほど，あなたに活力を与えられることは何もない。",
+  "created": 1786763126884
+ },
+ {
+  "eng": "Small endeavors made every day are more valuable than one whole night of effort.",
+  "jp": "毎日行われる小さな努力は，一夜を徹しての努力よりも価値がある。",
+  "created": 1786763119348
+ },
+ {
+  "eng": "Nicholas was much less interested in biology than his little brother.",
+  "jp": "ニコラスは弟よりもはるかに生物学への関心が薄かった。",
+  "created": 1786763112625
+ },
+ {
+  "eng": "I got more and more interested in the professor's lectures, as I learned more about him.",
+  "jp": "その教授についてより多くを知るにつれ，私は彼の講義にますます興味を持った。",
+  "created": 1786763101554
+ },
+ {
+  "eng": "No other company in the world can produce more energy-efficient cars than Japanese auto-makers.",
+  "jp": "日本の自動車メーカーほどエネルギー効率のよい車を製造できる会社は世界中にない。",
+  "created": 1786763095202
+ },
+ {
+  "eng": "The more Kylie studied English , the more interested she became in international affairs.",
+  "jp": "カイリーは英語を学べば学ぶほど，ますます国際問題に興味を持つようになった。",
+  "created": 1786763088608
+ },
+ {
+  "eng": "That Italian restaurant serves more delicious wine than any other in this area.",
+  "jp": "あのイタリア料理店は，この地区の他のどの店よりもおいしいワインを出す。",
+  "created": 1786763083460
+ },
+ {
+  "eng": "I swear that nothing is so precious to me in the world as you are .",
+  "jp": "ぼくにとって君ほど大切なものは世界中に何もないと誓うよ。",
+  "created": 1786763074525
+ },
+ {
+  "eng": "William is not so accustomed to city life as his little sister.",
+  "jp": "ウィリアムは妹ほど都会の生活に慣れていない。",
+  "created": 1786763065501
+ },
+ {
+  "eng": "Surprisingly Daniel's watch is almost as expensive as my car.",
+  "jp": "驚くべきことに，ダニエルの時計は私の車とほとんど同じくらいの値段だ。",
+  "created": 1786763046650
+ },
+ {
+  "eng": "Parker is used to living in the country because he has lived in this rural community for many years.",
+  "jp": "パーカーは長年この農村で暮らしてきたので，田舎暮らしに慣れている。",
+  "created": 1786763040389
+ },
+ {
+  "eng": "I won't be afraid of making mistakes because I know they can make me learn more.",
+  "jp": "私は間違えることを恐れないつもりだ，なぜなら間違いは私により多くのことを学ばせてくれるとわかっているから。",
+  "created": 1786763033361
+ },
+ {
+  "eng": "I'm ready to make every effort to achieve my goal.",
+  "jp": "私は目標を達成するためにあらゆる努力をする覚悟がある。",
+  "created": 1786763027411
+ },
+ {
+  "eng": "I'm so glad that Hannah finally accepted my proposal yesterday.",
+  "jp": "ハンナが昨日ついに僕のプロポーズを受け入れてくれて，ぼくはとても嬉しい。",
+  "created": 1786763021055
+ },
+ {
+  "eng": "I don't like fast food because it is greasy and makes you fat. --- Neither do I .",
+  "jp": "「ファストフードは脂っこくて太るから，私は好きじゃないわ。」―「私もよ。」",
+  "created": 1786763014511
+ },
+ {
+  "eng": "I like French films better than American ones. --- So do I .",
+  "jp": "「私はアメリカ映画よりフランス映画の方が好きです。」―「私もです。」",
+  "created": 1786762998948
+ },
+ {
+  "eng": "It was so fine a day that a lot of families were enjoying a picnic on the park lawn.",
+  "jp": "とてもいい天気だったので，たくさんの家族が公園の芝生の上でピクニックを楽しんでいた。",
+  "created": 1786762993050
+ },
+ {
+  "eng": "I think Catherine ought not to have cosmetic surgery . She is cute enough as she is now.",
+  "jp": "キャサリンは美容整形を受けるべきではないと思う。彼女は今のままで十分にかわいい。",
+  "created": 1786762988408
+ },
+ {
+  "eng": "You had better stop making a lot of noise every night, or I will call the police .",
+  "jp": "毎晩ひどい騒音を立てるのはやめた方がいい，さもないと警察を呼ぶぞ。",
+  "created": 1786762981103
+ },
+ {
+  "eng": "This area used to be a beautiful coral reef several decades ago.",
+  "jp": "この地域は，数十年前は美しいサンゴ礁だった。",
+  "created": 1786762974929
+ },
+ {
+  "eng": "I would rather join a volunteer activity than stay home and watch TV on Sundays.",
+  "jp": "私は日曜日に家にいてテレビを見るよりも，むしろボランティア活動に参加したい。",
+  "created": 1786762967093
+ },
+ {
+  "eng": "You may well think that I'm prejudiced , but my suggestion is based upon statistics .",
+  "jp": "私が偏見を持っているとあなたが思うのはもっともだが，私の提案は統計に基づいている。",
+  "created": 1786762961092
+ },
+ {
+  "eng": "You cannot be too careful when you drive a car in the rain at night.",
+  "jp": "夜に雨の中で車を運転するときは，どんなに注意してもしすぎることはない。",
+  "created": 1786762945282
+ },
+ {
+  "eng": "Believe it or not, I did see a UFO .",
+  "jp": "信じようが信じまいが，私は本当にＵＦＯを見た。",
+  "created": 1786762940326
+ },
+ {
+  "eng": "Jill's condition got worse in the afternoon. She should have seen the doctor in the morning.",
+  "jp": "ジルの病状は午後になって悪化した。彼女は午前中に医者にみてもらうべきだった。",
+  "created": 1786762912894
+ },
+ {
+  "eng": "David cannot have been in the movie theater . He was with me watching TV at home yesterday.",
+  "jp": "デイビッドが映画館にいたはずがない。彼はきのう，家でぼくといっしょにテレビを見ていた。",
+  "created": 1786762771709
+ },
+ {
+  "eng": "Somebody must have entered the garden . The gate is open and there are some footprints left on the path .",
+  "jp": "誰かが庭に入ったに違いない。門が開いていて，道にいくつかの足跡が残っている。",
+  "created": 1786762764964
+ },
+ {
+  "eng": "If you want to spoil a child , give him or her more things than are necessary .",
+  "jp": "もし子どもをだめにしたければ，その子に必要以上のものを与えなさい。",
+  "created": 1786762757689
+ },
+ {
+  "eng": "George is from Texas , as is evident from his accent .",
+  "jp": "なまりから明らかなように，ジョージはテキサス出身だ。",
+  "created": 1786762751511
+ },
+ {
+  "eng": "Wherever I live , I will never forget my family and will keep in contact with them .",
+  "jp": "たとえどこに住もうと，私は決して家族を忘れず，家族と連絡を取り合っていくつもりだ。",
+  "created": 1786762744052
+ },
+ {
+  "eng": "Whatever they may say , my determination will never be shaken .",
+  "jp": "彼らがたとえ何と言おうと，私の決心は決して揺るがない。",
+  "created": 1786762738334
+ },
+ {
+  "eng": "If you never give up , you can be whatever you want to be .",
+  "jp": "決してあきらめなければ，何でもなりたいものになれますよ。",
+  "created": 1786762731521
+ },
+ {
+  "eng": "Whoever keeps trying has a chance to fulfill their dreams .",
+  "jp": "挑戦し続ける人なら誰でも，夢を達成するチャンスがある。",
+  "created": 1786762723399
+ },
+ {
+  "eng": "Our new teacher , Mr. Miller, is what is called a man of culture .",
+  "jp": "私たちの新しい先生であるミラー先生は，いわゆる教養人です。",
+  "created": 1786762717390
+ },
+ {
+  "eng": "Chris won a gold medal in the national athletic meet , and what is more , he passed the entrance exam of a prestigious university .",
+  "jp": "クリスは全国陸上競技会で金メダルを取り，その上，彼は名門大学の入試に合格した。",
+  "created": 1786762712534
+ },
+ {
+  "eng": "Books are to our mind what food is to our body .",
+  "jp": "「本と精神の関係は，食物と身体の関係に等しい。」",
+  "created": 1786762705331
+ },
+ {
+  "eng": "After acquiring fame and fortune , the actress is no longer what she used to be .",
+  "jp": "「名声と財産を得た今では，その女優はもはや以前の彼女ではない」",
+  "created": 1786762699377
+ },
+ {
+  "eng": "I owe what I am to the teachers at my high school .",
+  "jp": "「現在の私があるのは，高校の先生方のおかげだ。」",
+  "created": 1786762691479
+ },
+ {
+  "eng": "People are not always what they appear to be , so be careful of strangers .",
+  "jp": "「人々はいつでも見かけどおりとは限らないので，知らない人には気をつけなさい。」",
+  "created": 1786762684807
+ },
+ {
+  "eng": "Don't put off till tomorrow what you can do today .",
+  "jp": "「今日できることを明日に延ばしてはならない。」",
+  "created": 1786762600891
+ },
+ {
+  "eng": "This is how the businessman succeeded in his deal .",
+  "jp": "「このようにしてその実業家は取引に成功した。」",
+  "created": 1786762594710
+ },
+ {
+  "eng": "I went to Venice, where I met my ex-girlfriend and talked about our happy times .",
+  "jp": "「私はベネチアへ行き，そこで元恋人と会って楽しかった頃のことを話した。」",
+  "created": 1786762588772
+ },
+ {
+  "eng": "I have two condominiums in Los Angeles, which are currently vacant .",
+  "jp": "「私はロサンゼルスに２戸のマンションを持っているが，それらは現在は空き室だ。」",
+  "created": 1786762581420
+ },
+ {
+  "eng": "Could you honestly tell me the reason why you are attracted to me ?",
+  "jp": "「あなたが私に惹かれる理由を正直に話してもらえますか？」",
+  "created": 1786762576373
+ },
+ {
+  "eng": "I still remember the day when I first met Naomi on the beach .",
+  "jp": "「私は浜辺で初めてナオミに会った日を今も覚えている。」",
+  "created": 1786762570323
+ },
+ {
+  "eng": "Those who attended the meeting were satisfied with the guest speaker's motivational speech .",
+  "jp": "「会合に出席した人々は，来賓講演者のやる気を奮い立たせる演説に満足した。」",
+  "created": 1786762565266
+ },
+ {
+  "eng": "That is the house where the famous author lived in his childhood .",
+  "jp": "「あれが，その有名な作家が子どもの頃に住んでいた家だ。」",
+  "created": 1786762548329
+ },
+ {
+  "eng": "That is the house in which the famous author lived in his childhood .",
+  "jp": "「あれが，その有名な作家が子どもの頃に住んでいた家だ。」",
+  "created": 1786762543232
+ },
+ {
+  "eng": "That is the house that the famous author lived in in his childhood .",
+  "jp": "「あれが，その有名な作家が子どもの頃に住んでいた家だ。」",
+  "created": 1786762536823
+ },
+ {
+  "eng": "The man who I spoke to on the street was a foreigner and didn't speak any Japanese .",
+  "jp": "「私が通りで話しかけた男性は外国人で，日本語を全く話さなかった。」",
+  "created": 1786762531526
+ },
+ {
+  "eng": "The book , which the author wrote last winter , was his best work .",
+  "jp": "「その本は，著者はそれを昨年の冬に書いたのだが，彼の最高傑作だった」",
+  "created": 1786762525320
+ },
+ {
+  "eng": "What's the name of the director whose movie got this year's Academy foreign picture award ?",
+  "jp": "「今年のアカデミー外国映画賞を取った映画の監督の名前は何ですか？」",
+  "created": 1786762519843
+ },
+ {
+  "eng": "Is this the car which has the most efficient gas mileage in the world ?",
+  "jp": "「これが世界一燃費効率のよい車ですか？」",
+  "created": 1786762513315
+ },
+ {
+  "eng": "Everybody was moved by the heart of the boxer who never gave up to the last second.",
+  "jp": "「最後の１秒まで決してあきらめなかったそのボクサーの強い意志に，みんなが感動した。」",
+  "created": 1786762506827
+ },
+ {
+  "eng": "The lady's hands were as small and cute as those of a baby .",
+  "jp": "「その婦人の手は，赤ん坊の手と同じくらい小さくてかわいかった。」",
+  "created": 1786762413678
+ },
+ {
+  "eng": "The salesman gave his business cards to those present at the meeting .",
+  "jp": "「その販売員は，会合に出席していた人々に自分の名刺を渡した。」",
+  "created": 1786762401669
+ },
+ {
+  "eng": "I have three sisters : one lives in Denver, and the others live in New Orleans .",
+  "jp": "「私には３人の姉妹がおり，１人はデンバーに，残りの２人はニューオーリンズに住んでいる。」",
+  "created": 1786762396211
+ },
+ {
+  "eng": "While some people are somewhat pessimistic about our country's future , others are quite optimistic .",
+  "jp": "「わが国の将来に関していくぶん悲観的な人々がいる一方で，全く楽観的な人々もいる。」",
+  "created": 1786762389501
+ },
+ {
+  "eng": "The identical twins looked so much alike . People around them were unable to tell one from the other .",
+  "jp": "「その一卵性双生児は見た目がとてもよく似ていた。まわりの人たちは１人をもう１人と区別することができなかった。」",
+  "created": 1786762382693
+ },
+ {
+  "eng": "I have three brothers : one lives in New York, another lives in Chicago, and the other lives in Los Angeles .",
+  "jp": "「私には３人の兄弟がおり，１人はニューヨークに，別の１人はシカゴに，残りの１人はロサンゼルスに住んでいる。」",
+  "created": 1786762374718
+ },
+ {
+  "eng": "Did you know that the population of Beijing is larger than that of New York ?",
+  "jp": "「北京の人口はニューヨークの人口よりも多いことを知っていましたか？」",
+  "created": 1786762367564
+ },
+ {
+  "eng": "Have you seen a scorpion in the school yard ? If you have seen one , immediately report to your teacher .",
+  "jp": "「校庭でサソリを見ましたか？　もし見たことがあれば，すぐに先生に報告しなさい。」",
+  "created": 1786762361446
+ },
+ {
+  "eng": "It seems that the rigid regulations at our school are only making the situation worse .",
+  "jp": "「本校の厳しい規則は，状況を悪化させているだけのように思われる。」",
+  "created": 1786762355710
+ },
+ {
+  "eng": "Her parents' encouragements made it possible for Allison to keep on with her studies .",
+  "jp": "「両親の励ましによって，アリソンは自分の研究を続けることができた。」",
+  "created": 1786762348990
+ },
+ {
+  "eng": "I think it natural that people of any age have the desire to start something new .",
+  "jp": "「どんな年齢の人々も何か新しいことを始めたいという気持ちを持っているのは当然だと思う。」",
+  "created": 1786762338994
+ },
+ {
+  "eng": "It is said that when you read aloud your brain capacity is dramatically improved .",
+  "jp": "「声に出して読めば脳の能力は劇的に向上すると言われている。」",
+  "created": 1786762331384
+ },
+ {
+  "eng": "It is generally thought that our class president is an honest and trustworthy person .",
+  "jp": "「私たちの学級委員長は，正直で信頼に値する人物だと広く思われている」",
+  "created": 1786762325802
+ },
+ {
+  "eng": "It doesn't matter whether my friends understand me or not . I'll keep chasing my dreams .",
+  "jp": "「友人たちが私を理解するかどうかは問題ではない。私は自分の夢を追いかけ続けるつもりだ。」",
+  "created": 1786762314923
+ },
+ {
+  "eng": "It is a pity that many people think that they will be able to speak a foreign language without making any effort .",
+  "jp": "「何も努力せずに外国語を話せるだろうと多くの人々が考えているのは残念なことだ。」",
+  "created": 1786762309551
+ },
+ {
+  "eng": "It took me three and a half hours to get here to see your face .",
+  "jp": "「君の顔を見にここへ来るのに，私は３時間半かかった。」",
+  "created": 1786762244218
+ },
+ {
+  "eng": "It cost the hospital over one million dollars to introduce a new monitoring system in every room .",
+  "jp": "「全室に新しい監視システムを導入するのに，その病院は百万ドルを超える経費を要した。」",
+  "created": 1786762235483
+ },
+ {
+  "eng": "Marie Curie devoted herself to the development of radiation .",
+  "jp": "「マリー・キュリーは，放射線療法の開発に一身を捧げた。」",
+  "created": 1786762229226
+ },
+ {
+  "eng": "The problem is that there are too many objections to Jack's new reform plan .",
+  "jp": "「問題は，ジャックの新しい改革案には反対が多すぎるということだ。」",
+  "created": 1786762219978
+ },
+ {
+  "eng": "The chances are that Noah will get a gold medal in the school marathon race .",
+  "jp": "「たぶんノアが校内マラソン競争で金メダルを取るだろう。」",
+  "created": 1786762212929
+ },
+ {
+  "eng": "No matter how far away we are from each other , I'll never forget you .",
+  "jp": "「私たちがお互いにどんなに遠くに離れていようと，私は決してあなたを忘れません。」",
+  "created": 1786762202579
+ },
+ {
+  "eng": "There is no doubt that the new economic stimulus plan will improve the economy .",
+  "jp": "「新しい経済刺激策が経済を好転させることに疑いの余地はない。」",
+  "created": 1786762196164
+ },
+ {
+  "eng": "When giving advice to his subordinates , Mr. Ford did so privately in his office .",
+  "jp": "「部下に助言をするとき，フォード氏は自分の執務室で個人的に（それを）行った。」",
+  "created": 1786762189074
+ },
+ {
+  "eng": "Please show me the way you make up your face so nicely .",
+  "jp": "「あなたの顔をそんなにきれいに化粧する方法を私に教えてください。」",
+  "created": 1786762181576
+ },
+ {
+  "eng": "The moment I turned back , the strange-shaped shadow disappeared from sight .",
+  "jp": "「私が後ろを向いた瞬間，奇妙な形の影が視界から消えた。」",
+  "created": 1786762172380
+ },
+ {
+  "eng": "The people in the country take it for granted that they can get clean air and water .",
+  "jp": "「その国の人々は，きれいな空気と水が手に入ることを当然だと考えている」",
+  "created": 1786762158994
+ },
+ {
+  "eng": "I didn't tell you to leave the team simply because you're not skilled .",
+  "jp": "「私は，単に君の技術が劣るからという理由で君にチームを出るよう言ったのではない。」",
+  "created": 1786762148704
+ },
+ {
+  "eng": "It will not be long before the scientist comes up with a new vaccine for the deadly virus .",
+  "jp": "「その科学者は，まもなくその致死性ウイルスに対する新しいワクチンを開発するだろう。」",
+  "created": 1786762134868
+ },
+ {
+  "eng": "Four years have passed since Mason began to live with an intelligent old man .",
+  "jp": "「メイソンがある聡明な老人と暮らし始めて４年になる。」",
+  "created": 1786762123738
+ },
+ {
+  "eng": "It is almost three years since our soccer team won the national contest .",
+  "jp": "「わがサッカーチームが全国大会で優勝してから，３年近くになる。」",
+  "created": 1786762117630
+ },
+ {
+  "eng": "It was not until Mia left me that I realized how insensitive I was toward her .",
+  "jp": "「ミアが私の元を去って初めて，私は自分が彼女に対してどれほど無神経だったかに気づいた。」",
+  "created": 1786762073442
+ },
+ {
+  "eng": "Human beings differ from other animals in that they know how to pass on knowledge and information from generation to generation .",
+  "jp": "「世代から世代へ知識や情報を伝える方法を知っているという点で，人間は他の動物とは異なる。」",
+  "created": 1786762066252
+ },
+ {
+  "eng": "Please get a vaccination in case you are exposed to the virus .",
+  "jp": "「ウイルスにさらされる場合に備えて，予防接種を受けてください。」",
+  "created": 1786762059919
+ },
+ {
+  "eng": "As far as the eye could see , I saw only the blue ocean in all directions .",
+  "jp": "「見渡す限り，四方八方には青い大海原しか見えなかった。」",
+  "created": 1786762052165
+ },
+ {
+  "eng": "As long as I'm here , you don't have to worry about anything and can sleep tight .",
+  "jp": "「私がここにいる限り，あなたは何も心配する必要はなく，ぐっすり眠ることができます。」",
+  "created": 1786762030804
+ },
+ {
+  "eng": "I had hardly arrived at the airport when Jenny came running toward me with a big smile.",
+  "jp": "「私が空港に着くとすぐに，ジェニーは満面の笑みで私の方へ走って来た。」",
+  "created": 1786762023448
+ },
+ {
+  "eng": "Let's start the project as soon as possible so that the river can regain its former purity.",
+  "jp": "「その川が以前の清らかさを取り戻せるように，できるだけ早くその事業を開始しましょう。」",
+  "created": 1786762014734
+ },
+ {
+  "eng": "As soon as the leader began to make his speech , everybody in the room stood up and listened to him intently .",
+  "jp": "「指導者が演説をし始めるとすぐに，部屋の中の全員が立ち上がって彼の言葉に熱心に耳を傾けた。」",
+  "created": 1786762004518
+ },
+ {
+  "eng": "Beth is so kind that she always helps people in trouble around her .",
+  "jp": "「ベスはとても親切なので，いつも周囲の人々を助ける。」",
+  "created": 1786761998865
+ },
+ {
+  "eng": "Whether my friends support me or not , I will never give up the dream of becoming a fashion model .",
+  "jp": "「友人たちが私を支持してもしなくても，私はファッションモデルになるという夢を決してあきらめない。」",
+  "created": 1786761991964
+ },
+ {
+  "eng": "Don't ask me whether I'll succeed or not . The word, \"impossible\" is not in my dictionary .",
+  "jp": "「私が成功するかどうかを私に尋ねてはならない。『不可能』という言葉は，私の辞書にはない。」",
+  "created": 1786761986545
+ },
+ {
+  "eng": "Three days before Olivia left the town, Ryan proposed to her with a diamond ring.",
+  "jp": "「オリヴィアが町を出る３日前に，ライアンはダイヤの指輪を添えて彼女に求婚した。」",
+  "created": 1786761980860
+ },
+ {
+  "eng": "Unless you are told to stay in the room , you are free to go outside in the recess .",
+  "jp": "「部屋にいるよう言われなければ，休憩時間に自由に外へ出てよろしい。」",
+  "created": 1786761976032
+ },
+ {
+  "eng": "Once Mr. Gold starts talking about the infinite universe, there's no way to stop him.",
+  "jp": "「ゴールド氏が無限の宇宙についていったん語り始めると，彼を止める方法はない。」",
+  "created": 1786761969843
+ },
+ {
+  "eng": "As Madeline grew up , she developed an incredible ability in gymnastics .",
+  "jp": "「マデリンは成長するにつれて，体操にすばらしい能力を発揮した。」",
+  "created": 1786761964377
+ },
+ {
+  "eng": "While some people say our future is dark , I strongly believe our future is quite bright for all human beings .",
+  "jp": "「我々の未来は暗いと言う人々もいるが，我々の未来は全人類にとって全く明るいと私は強く信じている。」\n「我々の未来は暗いと言う人々もいるが，我々の未来は全人類にとって全く明るいと私は強く信じている。」",
+  "created": 1786761921172
+ },
+ {
+  "eng": "Because they wouldn’t accept traveler’s checks at the store , I asked if they accepted credit cards .",
+  "jp": "「その店ではトラベラーズチェックが使えなかったので，私はクレジットカードが使えるかどうかを尋ねた。」",
+  "created": 1786761913971
+ },
+ {
+  "eng": "I believe that in the future all the people in the world will live peacefully without any war .",
+  "jp": "「将来世界のすべての人々が戦争のない平和な暮らしをするだろうと私は信じている。」",
+  "created": 1786761907642
+ },
+ {
+  "eng": "Jack not only passed the entrance examination , but he also qualified for a scholarship .",
+  "jp": "「ジャックは入学試験に合格しただけでなく，奨学金の資格も得た。」",
+  "created": 1786761899150
+ },
+ {
+  "eng": "The most important thing in life is not material comfort but mental satisfaction .",
+  "jp": "「人生で最も大切なことは，物質的な快適さではなく精神的な満足である。」",
+  "created": 1786761890396
+ },
+ {
+  "eng": "Neither Thomas nor Andy had the will to quit the experiments until they found the solution .",
+  "jp": "「トーマスもアンディもどちらも，答えを見つけるまでその実験をやめるつもりはなかった。」",
+  "created": 1786761883568
+ },
+ {
+  "eng": "If you are hungry , you can take either the apple pie or the cheesecake .",
+  "jp": "「もしおなかがすいているのなら，アップルパイかチーズケーキのどちらかを食べていいですよ。」",
+  "created": 1786761878854
+ },
+ {
+  "eng": "Both Mark and Ellen were among the first members of the environmental organization .",
+  "jp": "「マークもエレンも，その環境団体の当初からのメンバーの一人だった。」",
+  "created": 1786761872985
+ },
+ {
+  "eng": "I'll never leave this town , for I think this town is the best place on earth .",
+  "jp": "「私はこの町を決して出るつもりはない，なぜならこの町が地上で最高の場所だと思うからだ。」",
+  "created": 1786761867316
+ },
+ {
+  "eng": "Your future is not decided yet , so you can always change the course of your life .",
+  "jp": "「君の未来はまだ決まっていないのだから，君は自分の人生の進路をいつでも変えることができる。」",
+  "created": 1786761860198
+ },
+ {
+  "eng": "Physical exercise , provided that it is not excessive , can help get rid of stress .",
+  "jp": "「身体の運動は，度を越さなければ，ストレスを取り除くのに役立つ。」",
+  "created": 1786761855202
+ },
+ {
+  "eng": "All things considered , Kevin is the right choice for our class president .",
+  "jp": "「すべてのことを考慮すると，ケヴィンは私たちの学級委員長として適任だ」",
+  "created": 1786761847714
+ },
+ {
+  "eng": "Considering his age , he is not to blame for his conduct .",
+  "jp": "「彼の年齢を考慮すれば，彼の行いは責められるべきではない。」",
+  "created": 1786761842872
+ },
+ {
+  "eng": "Judging from everybody's reaction , Eric's proposal seemed to be accepted by most attendants .",
+  "jp": "「みんなの反応から判断して，エリックの提案はほとんどの出席者に受け入れられているようだった。」",
+  "created": 1786761836032
+ },
+ {
+  "eng": "Generally speaking , women live longer than men .",
+  "jp": "「一般的に言えば，女性は男性よりも長生きである。」",
+  "created": 1786761830457
+ },
+ {
+  "eng": "There being no good Mexican restaurants in that town , we decided to go to a Chinese restaurant instead .",
+  "jp": "「その町にはおいしいメキシコ料理店がなかったので，我々は代わりに中華料理店へ行くことにした。」",
+  "created": 1786761663457
+ },
+ {
+  "eng": "Having seen the movie before , Betty declined Jim's invitation politely .",
+  "jp": "「その映画は以前見たことがあったので，ベティはジムの招待を丁重に断った。」",
+  "created": 1786761658441
+ },
+ {
+  "eng": "Not knowing what to do , I went to Jack's room and asked him for advice .",
+  "jp": "「どうしたらよいかわからなかったので，私はジャックの部屋へ行き彼に助言を求めた。」",
+  "created": 1786761645949
+ },
+ {
+  "eng": "Seen at this angle , the mountain looks like a sleeping panda .",
+  "jp": "「この角度から見ると，あの山は眠っているパンダのように見える。」",
+  "created": 1786761638825
+ },
+ {
+  "eng": "The plane will take off from Narita at ten, arriving at its destination in seven hours .",
+  "jp": "「飛行機は10時に成田を離陸し，７時間後に目的地に着く。」",
+  "created": 1786761632664
+ },
+ {
+  "eng": "Learning about the story of the Major Leaguer , the players on the team were encouraged to make efforts .",
+  "jp": "「そのメジャー・リーガーの話を知って，そのチームの選手たちは努力するよう勇気づけられた。」",
+  "created": 1786761625710
+ },
+ {
+  "eng": "I didn't have much difficulty understanding the movie because I had read the original novel beforehand .",
+  "jp": "「原作の小説を読んでいたので，私はその映画を理解するのにあまり苦労しなかった。」",
+  "created": 1786761620311
+ },
+ {
+  "eng": "I spent my vacation traveling to neighboring countries and studying their culture .",
+  "jp": "「私は近隣諸国へ旅行し，その文化を学んで休暇を過ごした。」",
+  "created": 1786761612548
+ },
+ {
+  "eng": "Please remain seated and make sure your seat belt is fastened tightly .",
+  "jp": "「そのまま席におつきいただき，シートベルトがしっかりと締まっていることを確かめてください。」",
+  "created": 1786761606970
+ },
+ {
+  "eng": "The company president was pleased with the news of his company's increased profit .",
+  "jp": "「その会社の社長は自社の増益の知らせに満足した。」",
+  "created": 1786761599926
+ },
+ {
+  "eng": "The baseball game was very exciting , so the spectators got quite excited .",
+  "jp": "「その野球の試合はとても刺激的だったので，観客たちは非常に興奮した。」",
+  "created": 1786761593407
+ },
+ {
+  "eng": "The surprising news of the victory reached us early in the morning .",
+  "jp": "「勝利したという驚くべき知らせが，朝早く私たちの元に届いた。」",
+  "created": 1786761585222
+ },
+ {
+  "eng": "There is something wrong with my portable audio player . I should have it repaired .",
+  "jp": "「ぼくの携帯オーディオ・プレーヤーは調子が悪い。修理してもらわなければならない。」",
+  "created": 1786761579844
+ },
+ {
+  "eng": "Strangely all the curtains of the building remained closed even in the daytime .",
+  "jp": "「奇妙なことに，その建物のカーテンは全部，昼間でも閉められたままだった。」",
+  "created": 1786761572603
+ },
+ {
+  "eng": "I fell in love with her instantly when I saw her standing there .",
+  "jp": "「彼女がそこに立っているのを見た瞬間に，ぼくは彼女に恋をした。」",
+  "created": 1786761567270
+ },
+ {
+  "eng": "Because Emily was late for the appointment , Bill sat reading on the bench and waited for her .",
+  "jp": "「エミリーが約束に遅れたので，ビルはベンチに座って本を読みながら彼女を待った。」",
+  "created": 1786761522778
+ },
+ {
+  "eng": "A poor boy brought up in a very poor neighborhood finally became a very popular singer .",
+  "jp": "「とても貧しい地域で育ったある貧しい少年が，ついに非常に人気のある歌手になった。」",
+  "created": 1786761514382
+ },
+ {
+  "eng": "Who is the handsome young man singing in front of the statue ?",
+  "jp": "「像の前で歌っているハンサムな若者は誰ですか。」",
+  "created": 1786761508412
+ },
+ {
+  "eng": "Learning a language includes making mistakes and learning from them .",
+  "jp": "「言語の学習には，間違えることや間違いから学ぶことが含まれる。」",
+  "created": 1786761501622
+ },
+ {
+  "eng": "The philosopher taught his disciples that they should even be tolerant of being laughed at .",
+  "jp": "「その哲学者は，笑われることにも寛大であるべきだと弟子たちに教えた。」",
+  "created": 1786761495860
+ },
+ {
+  "eng": "Rebecca was very grateful for having been chosen for the year's best dresser at the ceremony .",
+  "jp": "「レベッカはその式典で年間ベストドレッサーに選ばれたことにとても感謝した。」",
+  "created": 1786761488527
+ },
+ {
+  "eng": "I'm ashamed of having driven so carelessly and having crashed my father's car .",
+  "jp": "「とても軽率な運転をして父の車をぶつけてしまったことを，ぼくは恥ずかしく思っている。」",
+  "created": 1786761482024
+ },
+ {
+  "eng": "You should try adding some milk to make the soup milder .",
+  "jp": "「そのスープをもっと口当たりよくするために，試しにミルクを入れてみるといい。」",
+  "created": 1786761474530
+ },
+ {
+  "eng": "It goes without saying that most people in the world long for peace .",
+  "jp": "「世界中のほとんどの人々が平和を切望していることは言うまでもない。」",
+  "created": 1786761468778
+ },
+ {
+  "eng": "I didn't feel like calling Tim that night because he had said a very insensitive thing to me at school .",
+  "jp": "「ティムは学校で私にとても無神経なことを言ったので，その晩私は彼に電話する気にならなかった。」",
+  "created": 1786761461199
+ },
+ {
+  "eng": "You can communicate with anybody beyond time and space by reading aloud the passages that they wrote .",
+  "jp": "「書かれた文章を声に出して読むことによって，時間と空間を越えて誰とでも対話することができる。」",
+  "created": 1786761406111
+ },
+ {
+  "eng": "I'm looking forward to meeting my biological father for the first time in fifteen years .",
+  "jp": "「私は15年ぶりに実の父親に会うのを楽しみにしています。」",
+  "created": 1786761390551
+ },
+ {
+  "eng": "You should be careful in choosing who is most suitable to lead our country .",
+  "jp": "「わが国を指導するのに誰が最も適しているかを選ぶ際には，慎重であるべきだ。」",
+  "created": 1786761385061
+ },
+ {
+  "eng": "On getting out of the building , the actor was met by a lot of excited fans .",
+  "jp": "「建物から出るとすぐに，その俳優は大勢の興奮したファンの出迎えを受けた。」",
+  "created": 1786761378515
+ },
+ {
+  "eng": "Jill never goes to a shopping mall without buying a lot of accessories .",
+  "jp": "「ジルはショッピングモールに行くと必ずたくさんのアクセサリーを買う。」",
+  "created": 1786761372187
+ },
+ {
+  "eng": "The new beauty parlor on the corner is worth trying because it is very inexpensive .",
+  "jp": "「角の新しい美容院はとても安いので，試してみる価値がある。」",
+  "created": 1786761349441
+ },
+ {
+  "eng": "I can't help taking a bite because the smell of this pie is so good.",
+  "jp": "「このパイはとてもいいにおいなので，一口食べずにはいられない。」",
+  "created": 1786761342583
+ },
+ {
+  "eng": "It is no use worrying about your past mistakes. Rather, it is important to learn from them and move on.",
+  "jp": "「過去の過ちについて思い悩むのはむだだ。それよりも，過ちから学んで前に進むことが大切だ。」",
+  "created": 1786761333663
+ },
+ {
+  "eng": "There is no telling if the next earthquake will come soon or not.",
+  "jp": "「次の地震がすぐに来るかどうかはわからない。」",
+  "created": 1786761323705
+ },
+ {
+  "eng": "I'm sure of the candidate winning the next election.",
+  "jp": "「その候補者が次の選挙に勝つと私は確信している。」",
+  "created": 1786761317018
+ },
+ {
+  "eng": "Kelly insists on his children finishing their homework before nine.",
+  "jp": "「ケリーは子どもたちが９時までに宿題を終えるよう強く言っている。」",
+  "created": 1786761307421
+ },
+ {
+  "eng": "The saleswoman was very good at explaining the merits of insurances.",
+  "jp": "「その女性販売員は，保険の利点を説明するのがとても上手だった。」",
+  "created": 1786761300313
+ },
+ {
+  "eng": "I remember seeing this movie before. What's the name of it?",
+  "jp": "「この映画は以前見た覚えがあります。名前は何ですか。」",
+  "created": 1786761293266
+ },
+ {
+  "eng": "Would you mind opening the window and letting some fresh air in ?",
+  "jp": "「窓を開けて新鮮な空気を入れていただけませんか。」",
+  "created": 1786761286005
+ },
+ {
+  "eng": "I'm honored to be invited here and introduced to these wonderful people.",
+  "jp": "「この場にお招きを受け，このような素晴らしい方々にご紹介していただいて光栄です。」",
+  "created": 1786761259677
+ },
+ {
+  "eng": "Victoria’s positive attitude never fails to encourage us .",
+  "jp": "「ヴィクトリアの積極的な態度は，いつも我々を勇気づけてくれる。」",
+  "created": 1786761249281
+ },
+ {
+  "eng": "Sean attends extra courses after school in order to prepare for the bar exam.",
+  "jp": "「ショーンは司法試験の準備をするために，放課後特別講座に出席している」",
+  "created": 1786761241788
+ },
+ {
+  "eng": "Lucy helped the children decorate the room with colored paper for the birthday party.",
+  "jp": "「ルーシーは子どもたちが誕生パーティーのために色紙で部屋を飾るのを手伝った。」",
+  "created": 1786761234141
+ },
+ {
+  "eng": "The sudden change in Brian's fashion has something to do with Claire.",
+  "jp": "「ブライアンのファッションの突然の変化は，クレアと何か関係がある。」",
+  "created": 1786761224057
+ },
+ {
+  "eng": "The fortune-teller had no choice but to meet the angry client again and listen to her complaints.",
+  "jp": "「占い師は，その怒った客に再び会い苦情を聞かざるを得なかった。」",
+  "created": 1786761217427
+ },
+ {
+  "eng": "Rose first came to know the painter aboard the ship.",
+  "jp": "「ローズはその船上で初めてその画家と知り合いになった。」",
+  "created": 1786754373684
+ },
+ {
+  "eng": "Megan was about to leave the house when the acceptance letter from the university arrived.",
+  "jp": "「メガンがまさに家を出ようとしたとき，大学からの合格通知が届いた。」",
+  "created": 1786754363660
+ },
+ {
+  "eng": "To tell you the truth, I'm attracted to your sister, Lauren .",
+  "jp": "「実を言うと，ぼくは君の妹のローレンに魅力を感じている。」",
+  "created": 1786754357152
+ },
+ {
+  "eng": "Everybody was attracted by the actress's great voice, to say nothing of her beauty.",
+  "jp": "「その女優の美貌は言うまでもなく，彼女のすばらしい声にみんなが魅了された。」",
+  "created": 1786754349757
+ },
+ {
+  "eng": "It was very difficult for the new teacher to get the students to behave nicely.",
+  "jp": "「生徒たちにきちんと行動させるのは，その新任教師にとって非常に難しかった。」",
+  "created": 1786754344119
+ },
+ {
+  "eng": "Ned looks pale today. He seems to have eaten something bad .",
+  "jp": "「ネッドは今日は顔色が悪い。何か悪いものを食べたようだ。」",
+  "created": 1786754336216
+ },
+ {
+  "eng": "I saw hula dancers from Hawaii dance with amazing grace.",
+  "jp": "「私はハワイから来たフラダンサーたちが驚くほど優美に踊るのを見た。」",
+  "created": 1786754329242
+ },
+ {
+  "eng": "Please let me know the details when there is a development in the project.",
+  "jp": "「計画に進展があれば，詳細を私に知らせてください。」",
+  "created": 1786754323386
+ },
+ {
+  "eng": "The store manager had the clerks work all night.",
+  "jp": "「その店長は店員たちを一晩中働かせた。」",
+  "created": 1786754317621
+ },
+ {
+  "eng": "Our coach made us practice our batting form every day, and it gradually made our team stronger .",
+  "jp": "「コーチはぼくたちに毎日打撃フォームを練習させ，それによってぼくたちのチームはだんだん強くなった。」",
+  "created": 1786754311503
+ },
+ {
+  "eng": "The prime minister is to meet delegates from African countries this weekend.",
+  "jp": "「首相は今週末にアフリカ諸国からの代表団に会う予定だ。」",
+  "created": 1786754306237
+ },
+ {
+  "eng": "The statesman decided not to accept the suspicious donation .",
+  "jp": "「その政治家は，その怪しい献金を受け取らないことに決めた。」",
+  "created": 1786754299472
+ },
+ {
+  "eng": "Do you know where to register for the summer course?",
+  "jp": "「夏期講習はどこで登録すればいいか知っていますか？」",
+  "created": 1786754292646
+ },
+ {
+  "eng": "Excuse me . Do you happen to know how to get to the amusement park?",
+  "jp": "「すみません。ひょっとして遊園地への行き方をご存知ないでしょうか。」",
+  "created": 1786754286500
+ },
+ {
+  "eng": "I didn't know what to do because there were no instructions.",
+  "jp": "「何も指示がなかったので，私は何をしてよいかわからなかった。」",
+  "created": 1786754281407
+ },
+ {
+  "eng": "Don't worry . You only have to write your name here .",
+  "jp": "「心配ありません。あなたはここに名前を書きさえすればよいのです。」",
+  "created": 1786754251196
+ },
+ {
+  "eng": "All you have to do is make an effort to make your dreams come true .",
+  "jp": "「君は自分の夢を実現するために努力しさえすればよい。」",
+  "created": 1786754245195
+ },
+ {
+  "eng": "Jenny is usually a very diligent student , but this time it was quite careless of her to forget to do the assignment .",
+  "jp": "「ジェニーはふだんはとても勤勉な学生だが，今回は実に不注意なことに宿題をし忘れた。」",
+  "created": 1786754238798
+ },
+ {
+  "eng": "The teacher said that it is possible for every motivated student to achieve their goal .",
+  "jp": "「やる気のある生徒はみな目標を達成することが可能だと先生は言った。」",
+  "created": 1786754232998
+ },
+ {
+  "eng": "The soup at the restaurant was too hot for the children to drink .",
+  "jp": "「そのレストランのスープは，子どもたちが飲むには熱すぎた。」",
+  "created": 1786754222617
+ },
+ {
+  "eng": "Would you be so kind as to go to the bus stop and check the time of the next bus?",
+  "jp": "「お手数ですが，バス停へ行って次のバスの時間を調べていただけますか。」",
+  "created": 1786754216233
+ },
+ {
+  "eng": "Although it was in the middle of winter, it was warm enough that day for students to play outside.",
+  "jp": "「真冬だったが，その日は生徒たちが外で遊べるくらい暖かかった。」",
+  "created": 1786754208873
+ },
+ {
+  "eng": "The new shoes are selling well because they are very comfortable to walk in.",
+  "jp": "「その新しい靴はとても歩きやすい履き心地なので，よく売れている。」",
+  "created": 1786754201967
+ },
+ {
+  "eng": "I'm sorry . I was so careless to forget to bring an umbrella.",
+  "jp": "「すみません。うっかりして傘を持ってくるのを忘れました。」",
+  "created": 1786754192865
+ },
+ {
+  "eng": "Kenny was surprised to hear the news, and stood up from his chair.",
+  "jp": "「ケニーはその知らせを聞いて驚き，いすから立ち上がった。」",
+  "created": 1786754187533
+ },
+ {
+  "eng": "I went all the way to see the parade, only to learn that it was canceled.",
+  "jp": "「私ははるばるそのパレードを見に行ったが，中止されたことを知るだけに終わった。」",
+  "created": 1786754180446
+ },
+ {
+  "eng": "The baby grew up to be a beautiful princess, and she lived to be ninety as a generous queen.",
+  "jp": "「その赤ん坊は成長して美しい王女になり，寛大な女王として90歳まで生きた。」",
+  "created": 1786754164056
+ },
+ {
+  "eng": "I went to the park with my classmates to see the cherry blossoms.",
+  "jp": "「私は桜の花を見るためにクラスの仲間たちといっしょに公園へ行った。」",
+  "created": 1786754158108
+ },
+ {
+  "eng": "Teaching something is the best way to master it perfectly.",
+  "jp": "何かを教えることは，それを完全に習得するための最善の方法である。",
+  "created": 1786754151345
+ },
+ {
+  "eng": "Annie's mother had no one to love her in her childhood.",
+  "jp": "アニーの母親は，子どもの頃に自分を愛してくれる人が誰もいなかった。",
+  "created": 1786754145770
+ },
+ {
+  "eng": "Jim had no house of his own to live in , but he thought himself very happy .",
+  "jp": "ジムには住むための持ち家がなかったが，自分はとても幸せだと思っていた。",
+  "created": 1786753684389
+ },
+ {
+  "eng": "I'm okay because I have a family to love and friends to trust .",
+  "jp": "愛する家族と信頼する友人を持っているので，私は大丈夫だ。",
+  "created": 1786753678203
+ },
+ {
+  "eng": "I believe it wrong to speak ill of others behind their backs .",
+  "jp": "陰で他人の悪口を言うのは悪いことだと私は信じている。",
+  "created": 1786753671279
+ },
+ {
+  "eng": "It is important to be self-confident when you take an examination .",
+  "jp": "試験を受けるときは，自信を持つことが大切だ。",
+  "created": 1786753663359
+ },
+ {
+  "eng": "I forgot to bring the ticket to the airport , so I had to have it reissued .",
+  "jp": "私は空港にチケットを持っていくのを忘れたので，再発行してもらわねばならなかった。",
+  "created": 1786753657083
+ },
+ {
+  "eng": "Do you want to go to the amusement park with me tomorrow afternoon ?",
+  "jp": "明日の午後，ぼくといっしょに遊園地に行きたいかい？",
+  "created": 1786753650598
+ },
+ {
+  "eng": "My future goal is to work globally to protect the environment from destruction .",
+  "jp": "私の将来の目標は，環境を破壊から守るために世界的規模で仕事をすることです。",
+  "created": 1786753642889
+ },
+ {
+  "eng": "To see other countries with your own eyes is an essential process in understanding international relations .",
+  "jp": "他の国々を自分の目で見ることは，国際関係を理解する際に不可欠のプロセスである。",
+  "created": 1786753635462
+ },
+ {
+  "eng": "The thief was seen to go out of the house by a little boy who had been awakened by the sound of something breaking.",
+  "jp": "その泥棒は，何かが壊れる音で目を覚ました小さな男の子に，家から出るところを見られた。",
+  "created": 1786753629290
+ },
+ {
+  "eng": "The hostages were made to sign the paper against their will .",
+  "jp": "人質たちは意に反してその書類に署名させられた。",
+  "created": 1786753620534
+ },
+ {
+  "eng": "On my way home , I was suddenly spoken to by a total stranger .",
+  "jp": "帰宅途中に，私は見ず知らずの人に突然話しかけられた。",
+  "created": 1786753614699
+ },
+ {
+  "eng": "The name of the car maker is now known to most businesspeople in the world .",
+  "jp": "その自動車メーカーの名前は，今では世界中のほとんどの実業家たちに知られている。",
+  "created": 1786753606449
+ },
+ {
+  "eng": "Don't go near the garage . It's being repaired and it's dangerous .",
+  "jp": "車庫に近寄ってはいけない。修理中で危険だから。",
+  "created": 1786753599205
+ },
+ {
+  "eng": "After a long struggle , the construction work has almost been finished .",
+  "jp": "長期にわたる悪戦苦闘の末，その建設工事はほぼ終わった。",
+  "created": 1786753589724
+ },
+ {
+  "eng": "Ellen was elected captain of the badminton team by her team members .",
+  "jp": "エレンは部員たちによってバドミントン部の主将に選ばれた。",
+  "created": 1786753582067
+ },
+ {
+  "eng": "Emily was given a bronze statue by the principal for her efforts as the president of student council．",
+  "jp": "生徒会長としての努力に対して，エミリーは校長からブロンズ像を授与された。",
+  "created": 1786753516717
+ },
+ {
+  "eng": "Dorothy's father is respected as a brave police officer by everybody in town .",
+  "jp": "ドロシーの父親は，勇敢な警官として町のみんなから尊敬されている。",
+  "created": 1786753507877
+ },
+ {
+  "eng": "I will return your comic book as soon as I have finished it .",
+  "jp": "読み終えたらすぐに君のマンガの本を返すよ。",
+  "created": 1786753501146
+ },
+ {
+  "eng": "When you see her tomorrow , please tell her that I'll never forget her .",
+  "jp": "明日あなたが彼女に会ったら，私は彼女を決して忘れないと彼女に伝えてください。",
+  "created": 1786753486509
+ },
+ {
+  "eng": "I'll have finished painting the wall by the time you come to pick me up for the party .",
+  "jp": "君がパーティーのために車で迎えに来てくれるまでに，壁にペンキを塗り終えておくよ。",
+  "created": 1786753474863
+ },
+ {
+  "eng": "Sadly I lost the purse today that I had bought only a week before at the shopping mall .",
+  "jp": "悲しいことに，私はショッピングモールでつい１週間前に買ったハンドバッグを今日なくした。",
+  "created": 1786753466413
+ },
+ {
+  "eng": "When I finally made up my mind to sell the house , I had lived in it for ten years .",
+  "jp": "ついにその家を売る決心をしたとき，私は10年間そこに住んでいた。",
+  "created": 1786753458421
+ },
+ {
+  "eng": "Tess has been studying physics for eight hours in a row . I think she should stop there .",
+  "jp": "テスは８時間連続で物理の勉強をし続けている。そのあたりでやめる方がいいと思う。",
+  "created": 1786753450572
+ },
+ {
+  "eng": "I have already decided what to study in university. I will study economics .",
+  "jp": "私は大学で何を学ぶかもう決めている。経済学を勉強するつもりだ。",
+  "created": 1786753443673
+ },
+ {
+  "eng": "I have never met Bob in the library . He's always in the cafeteria talking with girls .",
+  "jp": "図書館でボブに会ったことは一度もない。彼はいつもカフェテリアにいて，女の子たちと話している。",
+  "created": 1786753436310
+ },
+ {
+  "eng": "I accidentally saw my girlfriend talking to a handsome young man the other day .",
+  "jp": "ぼくは先日，恋人がハンサムな若い男と話しているのを偶然見かけた。",
+  "created": 1786753429245
+ },
+ {
+  "eng": "Although I had studied Italian for a year , I was unable to make myself understood in Italy .",
+  "jp": "私は１年間イタリア語を勉強していたが，イタリアでは自分の言うことを理解してもらえなかった。",
+  "created": 1786753421493
+ },
+ {
+  "eng": "When I was walking on the street , I suddenly heard my name called from behind",
+  "jp": "通りを歩いていると，背後から出し抜けに自分の名前を呼ばれるのが聞こえた。",
+  "created": 1786753412459
+ },
+ {
+  "eng": "Billy's bike had a flat tire , and he had to have it fixed .",
+  "jp": "ビリーの自転車はパンクし，ビリーはそれを直してもらわなければならなかった。",
+  "created": 1786753405352
+ },
+ {
+  "eng": "The cruel dictator forced the former rebels to work in mines for years .",
+  "jp": "その残忍な独裁者は，元反逆者たちを何年間も鉱山で強制的に働かせた。",
+  "created": 1786753397978
+ },
+ {
+  "eng": "Julia asked Max to accompany her to the ceremonial party at the embassy .",
+  "jp": "ジュリアは大使館での式典パーティーに同伴してくれるようマックスに頼んだ。",
+  "created": 1786753371420
+ },
+ {
+  "eng": "Most students of this school look on Mr. White as the best mathematics teacher .",
+  "jp": "この学校のほとんどの生徒は，ホワイト先生を最高の数学教師だと考えている。",
+  "created": 1786753364545
+ },
+ {
+  "eng": "Everyone in the office considered the man suitable for the task .",
+  "jp": "「職場の誰もがその男をその職務に適任だと考えた。」",
+  "created": 1786753357369
+ },
+ {
+  "eng": "The couple named the newborn baby Emma after her grandmother .",
+  "jp": "その夫婦は祖母にちなんで生まれた赤ちゃんをエマと名付けた。",
+  "created": 1786753350677
+ },
+ {
+  "eng": "Julie's smiles always make me happy . She's such a pleasant person .",
+  "jp": "「ジュリーの微笑みはいつも私を幸福にする。彼女はそれほど感じのよい人だ。」",
+  "created": 1786753342048
+ },
+ {
+  "eng": "The man bought his wife a gorgeous pair of earrings for her birthday .",
+  "jp": "その男は妻の誕生日に（妻に）豪華なイヤリングを買ってやった。",
+  "created": 1786753334682
+ },
+ {
+  "eng": "The hen lay on the ground and laid some beautiful eggs .",
+  "jp": "「そのめんどりは地面に横たわり，いくつかの美しい卵を産んだ。」",
+  "created": 1786753325588
+ },
+ {
+  "eng": "The members of the board of education discussed the issue heatedly .",
+  "jp": "「教育委員会の委員たちは，その問題を激しく議論した。」",
+  "created": 1786753318216
+ },
+ {
+  "eng": "Ted kept writing to her for years , but he never got a response .",
+  "jp": "「テッドは何年もの間彼女に手紙を書き続けたが，一度も返事をもらわなかった。」",
+  "created": 1786753309413
+ },
+ {
+  "eng": "The poor－looking woman in a shabby dress proved to be a millionaire .",
+  "jp": "「みすぼらしい服を着た貧しい身なりのその女性は，百万長者だとわかった。」",
+  "created": 1786753297260
+ },
+ {
+  "eng": "The leaves on the trees on this street turn yellow this season .",
+  "jp": "「この街路の木々の葉は，この季節には黄色に変わる。」",
+  "created": 1786753288243
+ },
+ {
+  "eng": "The company's new project sounded fantastic to all the employees .",
+  "jp": "「その会社の新規事業は，全社員にとって現実離れしたものに思われた。」",
+  "created": 1786753279623
+ },
+ {
+  "eng": "The students remained silent at the teacher's dull joke .",
+  "jp": "「生徒たちはその先生の退屈な冗談に黙ったままだった。」",
+  "created": 1786753270799
+ },
+ {
+  "eng": "The principal apologized to the parents for the accident at the school .",
+  "jp": "「校長は校内での事故を親たちに謝罪した。」",
+  "created": 1786753259580
+ },
+ {
+  "eng": "The company's stock price rose dramatically this year .",
+  "jp": "「その会社の株価は今年急激に上がった。」",
+  "created": 1786753248705
+ }
+]</script>
+<script>
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function highlight(text, query){
+  const safe = escapeHtml(text);
+  if(!query) return safe;
+  const q = escapeHtml(query);
+  try{
+    const re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
+    return safe.replace(re, m => '<mark>'+m+'</mark>');
+  }catch(e){ return safe; }
+}
+
+const LOCAL_PREFIX = 'eibunpo-note::';
+const mem = {};
+function rawGet(k){
+  try{ const v = localStorage.getItem(LOCAL_PREFIX + k); if(v !== null) return v; }catch(e){}
+  return (k in mem) ? mem[k] : null;
+}
+function rawSet(k, v){
+  try{ localStorage.setItem(LOCAL_PREFIX + k, v); }catch(e){ mem[k] = v; }
+}
+function rawDel(k){
+  try{ localStorage.removeItem(LOCAL_PREFIX + k); }catch(e){}
+  delete mem[k];
+}
+function rawKeys(prefix){
+  const keys = new Set(Object.keys(mem).filter(k => k.startsWith(prefix)));
+  try{
+    for(let i = 0; i < localStorage.length; i++){
+      const k = localStorage.key(i);
+      if(k && k.startsWith(LOCAL_PREFIX + prefix)) keys.add(k.slice(LOCAL_PREFIX.length));
+    }
+  }catch(e){}
+  return Array.from(keys);
+}
+async function storageSet(key, value){ rawSet(key, value); return true; }
+async function storageGet(key){ return rawGet(key); }
+async function storageDelete(key){ rawDel(key); }
+async function storageListKeys(prefix){ return rawKeys(prefix); }
+
+// 内蔵データを初回だけ登録（その後の追加・削除は通常どおり）
+function seedBuiltIn(){
+  if(rawGet('seeded-v1')) return;
+  const items = JSON.parse(document.getElementById('seed-data').textContent);
+  for(const it of items){
+    const id = 'entry:seed-' + it.created;
+    if(rawGet(id) === null) rawSet(id, JSON.stringify({ eng: it.eng, jp: it.jp, created: it.created, id }));
+  }
+  rawSet('seeded-v1', '1');
+}
+
+async function getAllEntries(){
+  const keys = await storageListKeys('entry:');
+  if(!keys || keys.length === 0) return [];
+  const entries = [];
+  for(const key of keys){
+    try{
+      const value = await storageGet(key);
+      if(value) entries.push(JSON.parse(value));
+    }catch(e){}
+  }
+  entries.sort((a,b) => b.created - a.created);
+  return entries;
+}
+
+async function deleteEntry(key){
+  await storageDelete(key);
+}
+
+async function renderSearch(){
+  const q = document.getElementById('in-search').value.trim();
+  const entries = await getAllEntries();
+  const filtered = q ? entries.filter(e => e.jp.toLowerCase().includes(q.toLowerCase())) : entries;
+  const countEl = document.getElementById('search-count');
+  const listEl = document.getElementById('search-list');
+  countEl.textContent = q ? filtered.length + ' 件見つかりました' : entries.length + ' 件登録済み';
+  if(filtered.length === 0){
+    listEl.innerHTML = '<div class="empty">' + (q ? '一致する項目がありません' : 'まだ何も登録されていません') + '</div>';
+    return;
+  }
+  listEl.innerHTML = filtered.map(e => cardHtml(e, q)).join('');
+  attachDeleteHandlers(listEl);
+}
+
+function cardHtml(e, query){
+  return '<div class="card" data-key="' + e.id + '">' +
+    '<button class="del" data-id="' + e.id + '" aria-label="削除">削除</button>' +
+    '<p class="eng">' + escapeHtml(e.eng) + '</p>' +
+    '<p class="jp">' + highlight(e.jp, query) + '</p>' +
+    '</div>';
+}
+
+function attachDeleteHandlers(container){
+  container.querySelectorAll('.del').forEach(btn => {
+    btn.addEventListener('click', async (ev) => {
+      const id = ev.target.dataset.id;
+      if(!id) return;
+      await deleteEntry(id);
+      renderSearch();
+    });
+  });
+}
+
+let searchTimer;
+document.getElementById('in-search').addEventListener('input', () => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(renderSearch, 150);
+});
+
+(async function init(){
+  seedBuiltIn();
+  await renderSearch();
+})();
+
+</script>
+</body>
+</html>
